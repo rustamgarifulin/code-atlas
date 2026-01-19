@@ -1,4 +1,7 @@
 # Reposcope
+[![npm version](https://img.shields.io/npm/v/reposcope.svg)](https://www.npmjs.com/package/reposcope)
+[![npm downloads](https://img.shields.io/npm/dm/reposcope.svg)](https://www.npmjs.com/package/reposcope)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A TypeScript CLI tool for generating comprehensive codebase documentation with tree view and file contents.
 
