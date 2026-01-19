@@ -1,0 +1,6 @@
+{
+  "dir": "./src",
+  "output": "documentation.md",
+  "ignore": ["**/*.test.ts", "**/node_modules/**"],
+  "maxFileSize": 1048576
+}

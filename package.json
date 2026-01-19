@@ -1,0 +1,62 @@
+{
+  "name": "code-atlas",
+  "version": "1.0.0",
+  "description": "A TypeScript tool for generating codebase documentation with tree view and file contents",
+  "type": "module",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "bin": {
+    "code-atlas": "./dist/main.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "import": "./dist/main.js"
+    }
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:demo": "node dist/main.js -dir=\"./src\" -output=\"test_output.md\"",
+    "prepublishOnly": "npm run build && npm run test",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "documentation",
+    "codebase",
+    "tree-view",
+    "typescript",
+    "cli",
+    "file-scanner"
+  ],
+  "author": "Rustam Garifulin <rustam@n69.in>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rustamgarifulin/code-atlas.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rustamgarifulin/code-atlas/issues"
+  },
+  "homepage": "https://github.com/rustamgarifulin/code-atlas#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "minimatch": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "@vitest/coverage-v8": "^4.0.17",
+    "typescript": "^5.0.0",
+    "vitest": "^4.0.17"
+  }
+}

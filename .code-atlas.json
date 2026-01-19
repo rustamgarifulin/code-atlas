@@ -1,0 +1,28 @@
+{
+  "dir": "./src",
+  "output": "project-documentation.md",
+  "ignore": [
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/*.log",
+    "**/*.ico",
+    "**/*.png",
+    "**/*.jpg",
+    "**/*.jpeg",
+    "**/*.gif",
+    "**/*.svg",
+    "**/dist/**",
+    "**/build/**",
+    "**/.DS_Store",
+    "**/package-lock.json",
+    "**/yarn.lock"
+  ],
+  "includedPathsFile": "included-files.txt",
+  "excludedPathsFile": "excluded-files.txt",
+  "header": "# My Project Documentation\n\nThis documentation was generated automatically using Code Atlas.\n\n**Project:** My Awesome Project  \n**Generated:** {{date}}  \n**Version:** 1.0.0\n\n",
+  "maxFileSize": 1048576,
+  "alwaysIncludeExtensions": ["md", "txt", "json"],
+  "fileTemplate": "### 📄 {{path}}\n\n```{{extension}}\n{{content}}\n```\n\n---\n\n",
+  "sort": "name",
+  "sortDirection": "asc"
+}
