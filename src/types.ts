@@ -1,4 +1,4 @@
-export interface CodeAtlasConfig {
+export interface ReposcopeConfig {
   /** Directory to scan */
   dir?: string;
 

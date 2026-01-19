@@ -1,12 +1,12 @@
 {
-  "name": "code-atlas",
+  "name": "reposcope",
   "version": "1.1.0",
   "description": "A TypeScript tool for generating codebase documentation with tree view and file contents",
   "type": "module",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "bin": {
-    "code-atlas": "./dist/main.js"
+    "reposcope": "./dist/main.js"
   },
   "exports": {
     ".": {
@@ -41,12 +41,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rustamgarifulin/code-atlas.git"
+    "url": "https://github.com/rustamgarifulin/reposcope.git"
   },
   "bugs": {
-    "url": "https://github.com/rustamgarifulin/code-atlas/issues"
+    "url": "https://github.com/rustamgarifulin/reposcope/issues"
   },
-  "homepage": "https://github.com/rustamgarifulin/code-atlas#readme",
+  "homepage": "https://github.com/rustamgarifulin/reposcope#readme",
   "engines": {
     "node": ">=18.0.0"
   },

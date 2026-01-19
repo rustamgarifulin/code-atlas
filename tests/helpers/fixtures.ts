@@ -11,7 +11,7 @@ export function getFixturePath(name: string): string {
   return join(FIXTURES_PATH, name);
 }
 
-export async function createTempDir(prefix = 'code-atlas-test-'): Promise<string> {
+export async function createTempDir(prefix = 'reposcope-test-'): Promise<string> {
   return mkdtemp(join(tmpdir(), prefix));
 }
 

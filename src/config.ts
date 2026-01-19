@@ -1,21 +1,21 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-import type { CLIArgs, CodeAtlasConfig } from './types.js';
+import type { CLIArgs, ReposcopeConfig } from './types.js';
 
 // Possible config file names (in priority order)
 const CONFIG_FILES = [
-  '.code-atlas.json',
-  '.code-atlasrc',
-  '.code-atlasrc.json',
-  'code-atlas.config.json',
-  'code-atlas.config.js'
+  '.reposcope.json',
+  '.reposcoperc',
+  '.reposcoperc.json',
+  'reposcope.config.json',
+  'reposcope.config.js'
 ];
 
 /**
  * Loads configuration from a file
  */
-export async function loadConfig(configPath?: string): Promise<CodeAtlasConfig> {
-  let config: CodeAtlasConfig = {};
+export async function loadConfig(configPath?: string): Promise<ReposcopeConfig> {
+  let config: ReposcopeConfig = {};
 
   // If a specific config path is provided
   if (configPath) {
@@ -28,7 +28,7 @@ export async function loadConfig(configPath?: string): Promise<CodeAtlasConfig> 
     config = await findAndLoadConfig(process.cwd());
   }
 
-  // Check package.json for code-atlas section
+  // Check package.json for reposcope section
   const packageConfig = await loadPackageJsonConfig();
   if (packageConfig) {
     config = mergeConfigs(packageConfig, config);
@@ -40,7 +40,7 @@ export async function loadConfig(configPath?: string): Promise<CodeAtlasConfig> 
 /**
  * Finds and loads config file in the specified directory
  */
-async function findAndLoadConfig(dir: string): Promise<CodeAtlasConfig> {
+async function findAndLoadConfig(dir: string): Promise<ReposcopeConfig> {
   for (const configFile of CONFIG_FILES) {
     const configPath = join(dir, configFile);
     if (existsSync(configPath)) {
@@ -54,7 +54,7 @@ async function findAndLoadConfig(dir: string): Promise<CodeAtlasConfig> {
 /**
  * Loads configuration from a specific file
  */
-async function loadConfigFile(filePath: string): Promise<CodeAtlasConfig> {
+async function loadConfigFile(filePath: string): Promise<ReposcopeConfig> {
   try {
     const ext = filePath.split('.').pop()?.toLowerCase();
 
@@ -76,7 +76,7 @@ async function loadConfigFile(filePath: string): Promise<CodeAtlasConfig> {
 /**
  * Loads configuration from package.json
  */
-async function loadPackageJsonConfig(): Promise<CodeAtlasConfig | null> {
+async function loadPackageJsonConfig(): Promise<ReposcopeConfig | null> {
   const packageJsonPath = join(process.cwd(), 'package.json');
 
   if (!existsSync(packageJsonPath)) {
@@ -85,7 +85,7 @@ async function loadPackageJsonConfig(): Promise<CodeAtlasConfig | null> {
 
   try {
     const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
-    return packageJson['code-atlas'] || null;
+    return packageJson['reposcope'] || null;
   } catch {
     return null;
   }
@@ -94,7 +94,7 @@ async function loadPackageJsonConfig(): Promise<CodeAtlasConfig | null> {
 /**
  * Merges configurations (second argument takes priority)
  */
-function mergeConfigs(base: CodeAtlasConfig, override: CodeAtlasConfig): CodeAtlasConfig {
+function mergeConfigs(base: ReposcopeConfig, override: ReposcopeConfig): ReposcopeConfig {
   return {
     ...base,
     ...override,
@@ -107,8 +107,8 @@ function mergeConfigs(base: CodeAtlasConfig, override: CodeAtlasConfig): CodeAtl
 /**
  * Merges configuration with CLI arguments
  */
-export function mergeConfigWithArgs(config: CodeAtlasConfig, args: CLIArgs): CodeAtlasConfig {
-  const merged: CodeAtlasConfig = { ...config };
+export function mergeConfigWithArgs(config: ReposcopeConfig, args: CLIArgs): ReposcopeConfig {
+  const merged: ReposcopeConfig = { ...config };
 
   // CLI arguments take priority over config
   if (args.dir !== undefined) merged.dir = args.dir;
@@ -119,7 +119,7 @@ export function mergeConfigWithArgs(config: CodeAtlasConfig, args: CLIArgs): Cod
   if (args.includedPathsFile !== undefined) merged.includedPathsFile = args.includedPathsFile;
   if (args.excludedPathsFile !== undefined) merged.excludedPathsFile = args.excludedPathsFile;
   if (args.maxFileSize !== undefined) merged.maxFileSize = parseInt(args.maxFileSize);
-  if (args.sort !== undefined) merged.sort = args.sort as CodeAtlasConfig['sort'];
+  if (args.sort !== undefined) merged.sort = args.sort as ReposcopeConfig['sort'];
 
   return merged;
 }
@@ -127,7 +127,7 @@ export function mergeConfigWithArgs(config: CodeAtlasConfig, args: CLIArgs): Cod
 /**
  * Validates configuration
  */
-export function validateConfig(config: CodeAtlasConfig): void {
+export function validateConfig(config: ReposcopeConfig): void {
   if (config.maxFileSize && config.maxFileSize < 0) {
     throw new Error('maxFileSize must be a positive number');
   }

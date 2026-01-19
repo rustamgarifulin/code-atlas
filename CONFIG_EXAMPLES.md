@@ -53,7 +53,7 @@ This document provides various configuration examples for different use cases.
   ],
   "includedPathsFile": "included-files.txt",
   "excludedPathsFile": "excluded-files.txt",
-  "header": "# 📚 Project Documentation\n\n> Generated automatically with Code Atlas\n\n## 📋 Table of Contents\n\n- [Tree View](#tree-view)\n- [Source Code](#content)\n\n",
+  "header": "# 📚 Project Documentation\n\n> Generated automatically with Reposcope\n\n## 📋 Table of Contents\n\n- [Tree View](#tree-view)\n- [Source Code](#content)\n\n",
   "maxFileSize": 2097152,
   "alwaysIncludeExtensions": ["md", "txt", "json", "yml", "yaml"],
   "fileTemplate": "### 📄 `{{path}}`\n\n```{{extension}}\n{{content}}\n```\n\n---\n\n",
@@ -113,7 +113,7 @@ This document provides various configuration examples for different use cases.
 
 ### Dynamic Configuration
 ```javascript
-// code-atlas.config.js
+// reposcope.config.js
 import { existsSync } from 'fs';
 import { join } from 'path';
 
@@ -143,7 +143,7 @@ export default {
 
 ### Environment-Based Configuration
 ```javascript
-// code-atlas.config.js
+// reposcope.config.js
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -174,10 +174,10 @@ export default {
 {
   "name": "my-project",
   "scripts": {
-    "docs": "code-atlas",
-    "docs:full": "code-atlas -config=full-config.json"
+    "docs": "reposcope",
+    "docs:full": "reposcope -config=full-config.json"
   },
-  "code-atlas": {
+  "reposcope": {
     "dir": "./src",
     "ignore": ["**/*.test.js"],
     "output": "quick-docs.md"
@@ -190,12 +190,12 @@ export default {
 {
   "name": "my-project",
   "scripts": {
-    "docs": "code-atlas",
-    "docs:api": "code-atlas -config=api-config.json",
-    "docs:full": "code-atlas -config=full-config.json",
-    "docs:prod": "NODE_ENV=production code-atlas"
+    "docs": "reposcope",
+    "docs:api": "reposcope -config=api-config.json",
+    "docs:full": "reposcope -config=full-config.json",
+    "docs:prod": "NODE_ENV=production reposcope"
   },
-  "code-atlas": {
+  "reposcope": {
     "dir": "./src",
     "output": "docs.md",
     "ignore": ["**/*.test.*", "**/node_modules/**"]

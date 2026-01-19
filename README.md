@@ -1,4 +1,4 @@
-# Code Atlas
+# Reposcope
 
 A TypeScript CLI tool for generating comprehensive codebase documentation with tree view and file contents.
 
@@ -17,12 +17,12 @@ A TypeScript CLI tool for generating comprehensive codebase documentation with t
 
 ### Global Installation (Recommended)
 ```bash
-npm install -g code-atlas
+npm install -g reposcope
 ```
 
 ### Local Installation
 ```bash
-npm install code-atlas
+npm install reposcope
 ```
 
 ## Usage
@@ -31,16 +31,16 @@ npm install code-atlas
 
 ```bash
 # Scan current directory (requires config file or -dir argument)
-code-atlas -dir=.
+reposcope -dir=.
 
 # Scan specific directory
-code-atlas -dir=./src -output=documentation.md
+reposcope -dir=./src -output=documentation.md
 
 # With custom ignore patterns
-code-atlas -ignore="**/*.log,**/node_modules/**,**/.git/**"
+reposcope -ignore="**/*.log,**/node_modules/**,**/.git/**"
 
 # Save path reports
-code-atlas -included-paths-file=included.txt -excluded-paths-file=excluded.txt
+reposcope -included-paths-file=included.txt -excluded-paths-file=excluded.txt
 ```
 
 ### Options
@@ -60,14 +60,14 @@ code-atlas -included-paths-file=included.txt -excluded-paths-file=excluded.txt
 
 ## Configuration Files
 
-Code Atlas supports configuration files for easier management of complex setups. The tool will automatically look for config files in this order:
+Reposcope supports configuration files for easier management of complex setups. The tool will automatically look for config files in this order:
 
-1. `.code-atlas.json`
-2. `.code-atlasrc`
-3. `.code-atlasrc.json`
-4. `code-atlas.config.json`
-5. `code-atlas.config.js`
-6. `package.json` (code-atlas section)
+1. `.reposcope.json`
+2. `.reposcoperc`
+3. `.reposcoperc.json`
+4. `reposcope.config.json`
+5. `reposcope.config.js`
+6. `package.json` (reposcope section)
 
 ### JSON Configuration Example
 
@@ -92,7 +92,7 @@ Code Atlas supports configuration files for easier management of complex setups.
 ### JavaScript Configuration Example
 
 ```javascript
-// code-atlas.config.js
+// reposcope.config.js
 export default {
   dir: './src',
   output: 'docs.md',
@@ -114,7 +114,7 @@ export default {
 ```json
 {
   "name": "my-project",
-  "code-atlas": {
+  "reposcope": {
     "dir": "./src",
     "ignore": ["**/*.test.js"],
     "output": "api-docs.md"
@@ -125,7 +125,7 @@ export default {
 ### Programmatic Usage
 
 ```typescript
-import { walkDir, writeFileContent } from 'code-atlas';
+import { walkDir, writeFileContent } from 'reposcope';
 
 // Custom file processing
 await walkDir(
@@ -145,30 +145,30 @@ await walkDir(
 
 ### Basic Documentation Generation
 ```bash
-code-atlas -dir=./my-project -output=project-docs.md
+reposcope -dir=./my-project -output=project-docs.md
 ```
 
 ### Using Configuration File
 ```bash
 # Uses auto-detected config file
-code-atlas
+reposcope
 
 # Use specific config file
-code-atlas -config=./my-config.json
+reposcope -config=./my-config.json
 ```
 
 ### Advanced CLI Usage
 ```bash
 # Limit file size and sort by type
-code-atlas -dir=./src -max-file-size=1048576 -sort=type
+reposcope -dir=./src -max-file-size=1048576 -sort=type
 
 # Complex ignore patterns
-code-atlas -dir=. -ignore="**/node_modules/**,**/.git/**,**/*.log,**/*.ico,**/*.png"
+reposcope -dir=. -ignore="**/node_modules/**,**/.git/**,**/*.log,**/*.ico,**/*.png"
 ```
 
 ### TypeScript Project Documentation
 ```bash
-code-atlas -dir=./src -output=api-docs.md -ignore="**/*.test.ts,**/*.spec.ts,**/__mocks__/**"
+reposcope -dir=./src -output=api-docs.md -ignore="**/*.test.ts,**/*.spec.ts,**/__mocks__/**"
 ```
 
 ### Configuration Options
@@ -219,7 +219,7 @@ export function helper() {
 
 ## Ignore Patterns
 
-Code Atlas uses [minimatch](https://github.com/isaacs/minimatch) for pattern matching. Common patterns:
+Reposcope uses [minimatch](https://github.com/isaacs/minimatch) for pattern matching. Common patterns:
 
 - `**/*.log` - All .log files
 - `**/node_modules/**` - Node modules directory

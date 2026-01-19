@@ -5,7 +5,7 @@ import { walkDir, writeFileContent } from './utils.js';
 import { basename } from 'node:path';
 import { appendToFile } from './utils.js';
 import { loadConfig, mergeConfigWithArgs, validateConfig } from './config.js';
-import type { CLIArgs, CodeAtlasConfig } from './types.js';
+import type { CLIArgs, ReposcopeConfig } from './types.js';
 
 // Application version
 const VERSION = 'v1.1.0';
@@ -34,9 +34,9 @@ if (flags.version) {
 // Print help
 if (flags.help || args.length === 0) {
   console.log(`
-Code Atlas - Generate codebase documentation with tree view and file contents
+Reposcope - Generate codebase documentation with tree view and file contents
 
-Usage: code-atlas [options]
+Usage: reposcope [options]
 
 Options:
   -dir=<path>                  Directory to scan (default: ".")
@@ -51,19 +51,19 @@ Options:
   -help                        Show help message and exit
 
 Config Files:
-  Code Atlas will automatically look for config files in this order:
-  - .code-atlas.json
-  - .code-atlasrc
-  - .code-atlasrc.json  
-  - code-atlas.config.json
-  - code-atlas.config.js
-  - package.json (code-atlas section)
+  Reposcope will automatically look for config files in this order:
+  - .reposcope.json
+  - .reposcoperc
+  - .reposcoperc.json  
+  - reposcope.config.json
+  - reposcope.config.js
+  - package.json (reposcope section)
 
 Examples:
-  code-atlas -dir=./src -output=docs.md
-  code-atlas -ignore="**/*.log,**/node_modules/**"
-  code-atlas -config=my-config.json
-  code-atlas -max-file-size=1048576 -sort=size
+  reposcope -dir=./src -output=docs.md
+  reposcope -ignore="**/*.log,**/node_modules/**"
+  reposcope -config=my-config.json
+  reposcope -max-file-size=1048576 -sort=size
   `);
   process.exit(0);
 }
@@ -78,7 +78,7 @@ async function main() {
     const finalConfig = mergeConfigWithArgs(config, flags);
 
     // Set default values
-    const options: Required<Pick<CodeAtlasConfig, 'dir' | 'output' | 'ignore'>> & CodeAtlasConfig = {
+    const options: Required<Pick<ReposcopeConfig, 'dir' | 'output' | 'ignore'>> & ReposcopeConfig = {
       dir: finalConfig.dir || '.',
       output: finalConfig.output || 'codebase.md',
       ignore: finalConfig.ignore || ['\\.git.*'],
@@ -95,7 +95,7 @@ async function main() {
     }
 
     // Create file header
-    const header = options.header || '# Code Atlas Documentation\n\nGenerated with Code Atlas\n\n';
+    const header = options.header || '# Reposcope Documentation\n\nGenerated with Reposcope\n\n';
     writeFileSync(options.output, header + '## Tree View:\n```\n', 'utf-8');
 
     // Recursively walk directory and write tree

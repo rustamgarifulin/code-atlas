@@ -90,7 +90,7 @@ describe('loadConfig', () => {
 
   describe('with fixture configs', () => {
     test('should load fixture JSON config', async () => {
-      const configPath = getFixturePath('configs/.code-atlas.json');
+      const configPath = getFixturePath('configs/.reposcope.json');
       const config = await loadConfig(configPath);
 
       expect(config.dir).toBe('./src');

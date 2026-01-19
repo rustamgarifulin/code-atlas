@@ -1,6 +1,6 @@
 # Test Fixture
 
-This is a basic test fixture for testing code-atlas functionality.
+This is a basic test fixture for testing reposcope functionality.
 
 ## Files
 

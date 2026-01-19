@@ -1,4 +1,4 @@
-// code-atlas.config.js
+// reposcope.config.js
 export default {
   dir: './src',
   output: 'documentation.md',

@@ -2,7 +2,7 @@ import { existsSync, mkdirSync, writeFileSync, Dirent } from 'fs';
 import { readdir, readFile, stat } from 'fs/promises';
 import { dirname, extname, join, relative } from 'path';
 import { minimatch } from 'minimatch';
-import type { CodeAtlasConfig } from './types.js';
+import type { ReposcopeConfig } from './types.js';
 
 export function shouldIgnore(path: string, ignorePatterns: string[]): boolean {
   if (path === '.') return true;
@@ -21,8 +21,8 @@ function directoriesFirst(a: Dirent, b: Dirent): number | null {
 async function sortEntries(
   entries: Dirent[],
   dirPath: string,
-  sort: CodeAtlasConfig['sort'] = 'name',
-  sortDirection: CodeAtlasConfig['sortDirection'] = 'asc'
+  sort: ReposcopeConfig['sort'] = 'name',
+  sortDirection: ReposcopeConfig['sortDirection'] = 'asc'
 ): Promise<Dirent[]> {
   const multiplier = sortDirection === 'asc' ? 1 : -1;
 
@@ -92,7 +92,7 @@ export async function walkDir(
   ) => Promise<void>,
   depth: number = 0,
   depthOpen: Record<number, boolean> = {},
-  options: Pick<CodeAtlasConfig, 'sort' | 'sortDirection'> = {}
+  options: Pick<ReposcopeConfig, 'sort' | 'sortDirection'> = {}
 ): Promise<void> {
   const { sort, sortDirection } = options;
 
@@ -125,7 +125,7 @@ export async function walkDir(
 }
 
 export async function writeFileContent(
-  options: CodeAtlasConfig
+  options: ReposcopeConfig
 ): Promise<{ includedPaths: string[]; excludedPaths: string[] }> {
   const includedPaths: string[] = [];
   const excludedPaths: string[] = [];

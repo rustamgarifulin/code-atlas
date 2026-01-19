@@ -28,12 +28,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - File content extraction with automatic syntax highlighting
 - Configurable ignore patterns using glob syntax (via minimatch)
 - Multiple configuration file support:
-  - `.code-atlas.json`
-  - `.code-atlasrc`
-  - `.code-atlasrc.json`
-  - `code-atlas.config.json`
-  - `code-atlas.config.js` (with dynamic configuration support)
-  - `package.json` (code-atlas section)
+  - `.reposcope.json`
+  - `.reposcoperc`
+  - `.reposcoperc.json`
+  - `reposcope.config.json`
+  - `reposcope.config.js` (with dynamic configuration support)
+  - `package.json` (reposcope section)
 - CLI with comprehensive options:
   - `-dir` - Directory to scan
   - `-output` - Output file name
