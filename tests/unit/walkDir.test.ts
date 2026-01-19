@@ -232,4 +232,110 @@ describe('walkDir', () => {
       expect(dirs).toContain('empty');
     });
   });
+
+  describe('sorting', () => {
+    test('should sort files by name ascending', async () => {
+      await writeFile(join(tempDir, 'zebra.ts'), 'z');
+      await writeFile(join(tempDir, 'apple.ts'), 'a');
+      await writeFile(join(tempDir, 'mango.ts'), 'm');
+
+      const files: string[] = [];
+      await walkDir(tempDir, tempDir, [], async (_, relPath) => {
+        files.push(relPath);
+      }, undefined, 0, {}, { sort: 'name', sortDirection: 'asc' });
+
+      expect(files).toEqual(['apple.ts', 'mango.ts', 'zebra.ts']);
+    });
+
+    test('should sort files by name descending', async () => {
+      await writeFile(join(tempDir, 'zebra.ts'), 'z');
+      await writeFile(join(tempDir, 'apple.ts'), 'a');
+      await writeFile(join(tempDir, 'mango.ts'), 'm');
+
+      const files: string[] = [];
+      await walkDir(tempDir, tempDir, [], async (_, relPath) => {
+        files.push(relPath);
+      }, undefined, 0, {}, { sort: 'name', sortDirection: 'desc' });
+
+      expect(files).toEqual(['zebra.ts', 'mango.ts', 'apple.ts']);
+    });
+
+    test('should sort files by type (extension)', async () => {
+      await writeFile(join(tempDir, 'script.ts'), 'ts');
+      await writeFile(join(tempDir, 'style.css'), 'css');
+      await writeFile(join(tempDir, 'data.json'), 'json');
+
+      const files: string[] = [];
+      await walkDir(tempDir, tempDir, [], async (_, relPath) => {
+        files.push(relPath);
+      }, undefined, 0, {}, { sort: 'type', sortDirection: 'asc' });
+
+      // .css < .json < .ts
+      expect(files).toEqual(['style.css', 'data.json', 'script.ts']);
+    });
+
+    test('should sort files by size ascending', async () => {
+      await writeFile(join(tempDir, 'large.ts'), 'x'.repeat(1000));
+      await writeFile(join(tempDir, 'small.ts'), 'x');
+      await writeFile(join(tempDir, 'medium.ts'), 'x'.repeat(100));
+
+      const files: string[] = [];
+      await walkDir(tempDir, tempDir, [], async (_, relPath) => {
+        files.push(relPath);
+      }, undefined, 0, {}, { sort: 'size', sortDirection: 'asc' });
+
+      expect(files).toEqual(['small.ts', 'medium.ts', 'large.ts']);
+    });
+
+    test('should sort files by size descending', async () => {
+      await writeFile(join(tempDir, 'large.ts'), 'x'.repeat(1000));
+      await writeFile(join(tempDir, 'small.ts'), 'x');
+      await writeFile(join(tempDir, 'medium.ts'), 'x'.repeat(100));
+
+      const files: string[] = [];
+      await walkDir(tempDir, tempDir, [], async (_, relPath) => {
+        files.push(relPath);
+      }, undefined, 0, {}, { sort: 'size', sortDirection: 'desc' });
+
+      expect(files).toEqual(['large.ts', 'medium.ts', 'small.ts']);
+    });
+
+    test('should place directories before files', async () => {
+      await mkdir(join(tempDir, 'zdir'));
+      await writeFile(join(tempDir, 'afile.ts'), 'a');
+      await writeFile(join(tempDir, 'zdir/inner.ts'), 'inner');
+
+      const items: string[] = [];
+      await walkDir(
+        tempDir,
+        tempDir,
+        [],
+        async (_, relPath) => {
+          items.push(`file:${relPath}`);
+        },
+        async (_, relPath) => {
+          items.push(`dir:${relPath}`);
+        },
+        0,
+        {},
+        { sort: 'name', sortDirection: 'asc' }
+      );
+
+      // Directory should come first even though 'zdir' > 'afile' alphabetically
+      expect(items[0]).toBe('dir:zdir');
+    });
+
+    test('should sort nested directories independently', async () => {
+      await mkdir(join(tempDir, 'subdir'));
+      await writeFile(join(tempDir, 'subdir/z.ts'), 'z');
+      await writeFile(join(tempDir, 'subdir/a.ts'), 'a');
+
+      const files: string[] = [];
+      await walkDir(tempDir, tempDir, [], async (_, relPath) => {
+        files.push(relPath);
+      }, undefined, 0, {}, { sort: 'name', sortDirection: 'asc' });
+
+      expect(files).toEqual(['subdir/a.ts', 'subdir/z.ts']);
+    });
+  });
 });

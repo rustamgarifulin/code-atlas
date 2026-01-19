@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-01-19
+
+### Added
+
+- File sorting support with `-sort` option (name, size, modified, type)
+- Sort direction with `-sortDirection` option (asc, desc)
+- Directories always appear before files in sorted output
+
+### Fixed
+
+- Removed unimplemented `includeGitInfo` option
+- Removed unimplemented `includeEmptyDirs` option
+- Fixed bug where directories were incorrectly added to excludedPaths
+
 ## [1.0.0] - 2025-01-18
 
 ### Added
@@ -26,7 +40,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `-ignore` - Ignore patterns
   - `-config` - Custom config file path
   - `-max-file-size` - File size limit
-  - `-sort` - Sort method (name, size, modified, type)
   - `-included-paths-file` - Save included paths list
   - `-excluded-paths-file` - Save excluded paths list
 - TypeScript type definitions for programmatic usage

@@ -8,7 +8,7 @@ import { loadConfig, mergeConfigWithArgs, validateConfig } from './config.js';
 import type { CLIArgs, CodeAtlasConfig } from './types.js';
 
 // Application version
-const VERSION = 'v1.0.0';
+const VERSION = 'v1.1.0';
 
 // Parse command line arguments
 const args = process.argv.slice(2);
@@ -113,7 +113,9 @@ async function main() {
         const pipe = isLast ? '└─' : '├─';
         appendToFile(options.output, `${indent}${pipe}${basename(relPath)}/\n`);
       },
-      0
+      0,
+      {},
+      { sort: options.sort, sortDirection: options.sortDirection }
     );
 
     appendToFile(options.output, '```\n\n## Content:\n');
